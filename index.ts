@@ -26,30 +26,48 @@ async function main() {
         var files = walk(dir, options);
 
         var imports = [];
+        var containers = new Set<string>();
+        
         files.forEach(function(f:walk.Item){
             // File names are all structured the same way. They follow the convention:
             // <Name>_<Type>_<Surface>_<Variation#>
             // ex: Footstep_Crouching_Concrete_01
             var filename = path.basename(f.path);
+            var basename = path.basename(f.path, '.wav');
             var matches = filename.match(/^(\w+)_(\w+)_(\w+)_(\d+).wav$/i);
-            
-            // Top switch container
-            imports.push({
-                switchAssignation: `<Switch Group:FootStepType>${matches[2]}`,
-                objectPath: `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${matches[1]}\\<Switch Container>${matches[2]}`
-            });
 
-            // Middle Switch container
-            imports.push({
-                switchAssignation: `<Switch Group:Surface>${matches[3]}`,
-                objectPath: `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${matches[1]}\\<Switch Container>${matches[2]}\\<Random Container>${matches[3]}`
-            });            
+            if(matches){
+                var topName = matches[1];
+                var typeName = matches[2];
+                var surfaceName = matches[3];
 
-            // SFX
-            imports.push({
-                audioFile: f.path,
-                objectPath: `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${matches[1]}\\<Switch Container>${matches[2]}\\<Random Container>${matches[3]}\\<Sound SFX>${path.basename(f.path, '.wav')}`
-            });
+                var topContainer = `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${topName}\\<Switch Container>${typeName}`;
+                var middleContainer = `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${topName}\\<Switch Container>${typeName}\\<Random Container>${surfaceName}`;
+
+                if(!containers.has(topContainer)){
+                    containers.add(topContainer);
+                    // Top switch container
+                    imports.push({
+                        switchAssignation: `<Switch Group:FootStepType>${typeName}`,
+                        objectPath: topContainer
+                    });                
+                }
+
+                if(!containers.has(middleContainer)){
+                    containers.add(middleContainer);
+                    // Middle Switch container
+                    imports.push({
+                        switchAssignation: `<Switch Group:Surface>${surfaceName}`,
+                        objectPath: middleContainer
+                    });            
+                }
+
+                // SFX
+                imports.push({
+                    audioFile: f.path,
+                    objectPath: `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${topName}\\<Switch Container>${typeName}\\<Random Container>${surfaceName}\\<Sound SFX>${basename}`
+                });
+            }
         });
 
         let importArgs = {

@@ -28,6 +28,8 @@ Build Typescript:
 
 ## Preparation
 
+Note: Use Wwise 2017.1.2 or +.
+
 First, ensure WAAPI is enabled in Wwise:
  - menu **Project/Preferences**
  - Check **Enable Wwise Authoring API**
@@ -38,13 +40,41 @@ Then, this sample is using the WAV files provided in the Wwise **Sample Project*
 
  - Install Wwise, with the **Sample Project** option
  - Locate the footstep WAV files in the sample project folder:
-   typically: `C:\Program Files (x86)\Audiokinetic\Wwise 2017.1.0.6302\SampleProject\Originals\SFX\Footstep`
+   typically: `C:\Program Files (x86)\Audiokinetic\Wwise 20???.?.?.????\SampleProject\Originals\SFX\Footstep`
 
 ## Execution
 
-1. Prepare files in a directory following a naming convention:
-    - ddd
+1. Prepare footsteps files in a directory following a naming convention:
+    - `<Name>_<Type>_<Surface>_<Variation#>.wav`:
+        - **Name**: Name of the top container
+        - **Type**: Type of movement
+        - **Surface**: Type of surface
+        - **Variation#**: Id of variation
 1. Open a Wwise Project. (not the Sample Project)
 1. Run the following commands from the directory containing index.js, specify the correct footstep folder:
 
     `node index.js "C:\...\SFX\Footstep"`
+
+Example of file names:
+
+    Footstep_Walking_Gravel_01.wav
+    Footstep_Walking_Gravel_02.wav
+    Footstep_Walking_Gravel_03.wav
+    Footstep_Walking_Hardmetal_01.wav
+    Footstep_Walking_Hardmetal_02.wav
+    Footstep_Walking_Hardmetal_03.wav
+    Footstep_Walking_Hardwood_01.wav
+    Footstep_Walking_Hardwood_02.wav
+    Footstep_Crouching_Concrete_01.wav
+    Footstep_Crouching_Concrete_02.wav
+    Footstep_Crouching_Gravel_01.wav
+    Footstep_Crouching_Gravel_02.wav
+    Footstep_Crouching_Gravel_06.wav
+    Footstep_Crouching_Hardmetal_01.wav
+    Footstep_Crouching_Hardmetal_02.wav
+    Footstep_Running_Concrete_01.wav
+    Footstep_Running_Concrete_02.wav
+    Footstep_Running_Gravel_01.wav
+    Footstep_Running_Gravel_02.wav
+    Footstep_Running_Hardmetal_01.wav
+    Footstep_Running_Hardmetal_02.wav

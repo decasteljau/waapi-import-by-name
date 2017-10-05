@@ -24,7 +24,7 @@ Install dependencies:
 
 Build Typescript:
 
-`tsc -p .`
+`npm run build`
 
 ## Preparation
 

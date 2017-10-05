@@ -4,7 +4,8 @@
   "description": "Wwise Authoring API with async wamp",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc -p ."
   },
   "keywords": [
     "wwise",
@@ -22,6 +23,7 @@
     "klaw-sync": "^3.0.0"
   },
   "devDependencies": {
-    "@types/klaw-sync": "^1.1.3"
+    "@types/klaw-sync": "^1.1.3",
+    "typescript": "^2.5.3"
   }
 }

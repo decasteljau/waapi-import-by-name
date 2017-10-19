@@ -1,7 +1,7 @@
-import * as wamp from './wamp-promise';
+import * as waapi from 'waapi-client';
 import * as fs from 'fs-extra';
 import * as walk from 'klaw-sync';
-import { ak } from './waapi';
+import { ak } from 'waapi';
 import * as path from 'path';
 
 if(process.argv.length != 3){
@@ -16,7 +16,7 @@ async function main() {
     try {
         // Connect to WAAPI
         // Ensure you enabled WAAPI in Wwise's User Preferences
-        var connection = await wamp.connect('ws://localhost:8080/waapi');
+        var connection = await waapi.connect('ws://localhost:8080/waapi');
 
         // Obtain information about Wwise
         var wwiseInfo = await connection.call(ak.wwise.core.getInfo, {});

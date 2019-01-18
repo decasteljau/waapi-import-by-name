@@ -41,9 +41,19 @@ async function main() {
                 var typeName = matches[2];
                 var surfaceName = matches[3];
 
+                var rootContainer = `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${topName}`;
                 var topContainer = `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${topName}\\<Switch Container>${typeName}`;
                 var middleContainer = `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${topName}\\<Switch Container>${typeName}\\<Random Container>${surfaceName}`;
 
+                if(!containers.has(rootContainer)){
+                    containers.add(rootContainer);
+                    // Top switch container
+                    imports.push({
+                        objectPath: rootContainer,
+                        event:'FootStep@Play'
+                    });                
+                }
+                
                 if(!containers.has(topContainer)){
                     containers.add(topContainer);
                     // Top switch container
@@ -65,7 +75,7 @@ async function main() {
                 // SFX
                 imports.push({
                     audioFile: f.path,
-                    objectPath: `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${topName}\\<Switch Container>${typeName}\\<Random Container>${surfaceName}\\<Sound SFX>${basename}`
+                    objectPath: `\\Actor-Mixer Hierarchy\\Default Work Unit\\<Switch Container>${topName}\\<Switch Container>${typeName}\\<Random Container>${surfaceName}\\<Sound SFX>${basename}`,
                 });
             }
         });
